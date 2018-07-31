@@ -8,7 +8,7 @@ namespace WebCounters.Models
     abstract public class BaseCounter
     {
 
-        public int NextValue { get => getNextValue(); }
+        public int NextValue { get { return getNextValue(); } }
 
         protected abstract int getNextValue();
 
