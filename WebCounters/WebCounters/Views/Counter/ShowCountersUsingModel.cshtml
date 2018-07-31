@@ -1,0 +1,13 @@
+﻿@model WebCounters.Models.CountersViewModel
+
+@{
+    ViewBag.Title = "ShowCountersUsingModel";
+}
+
+<h2>ShowCountersUsingModel</h2>
+
+<ul>
+    <li>SessionCounter     = @Model.SessionCounter.NextValue</li>
+    <li>ApplicationCounter = @Model.ApplicationCounter.NextValue</li>
+    <li>StaticCounter      = @Model.StaticCounter.NextValue</li>
+</ul>

@@ -22,6 +22,16 @@ namespace WebCounters.Controllers
             return View();
         }
 
+        public ActionResult ShowCountersUsingModel()
+        {
+            return View(new CountersViewModel()
+            {
+                ApplicationCounter = getApplicationCounter(),
+                SessionCounter = getSessionCounter(),
+                StaticCounter = getStaticCounter()
+            });
+        }
+
         private BaseCounter getSessionCounter()
         {
             if (Session[KEY] == null)
