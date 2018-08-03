@@ -9,18 +9,34 @@ namespace WebModel_001.Models
     {
 
         private List<Person> items = new List<Person>();
-
-        public List<Person> Items { get { return items; } }
+      
+        public PersonProvider()
+        {
+            //Generujemy przykładowe dane
+            Insert(new Person() { FirstName = "Jan", SureName = "Nowak", Sex = 'M', BirthDate = new DateTime(2000, 1, 22)}, true);
+            Insert(new Person() { FirstName = "Piotr", SureName = "Brzeski", Sex = 'M', BirthDate = new DateTime(1995, 10, 17) }, true);
+            Insert(new Person() { FirstName = "Andrzej", SureName = "Dudek", Sex = 'M', BirthDate = new DateTime(1972, 4, 5) }, true);
+            Insert(new Person() { FirstName = "Anna", SureName = "Mała", Sex = 'W', BirthDate = new DateTime(2003, 10, 23) }, true);
+        }
+       
+        public List<Person> ListAll()
+        {
+            return items;
+        }
 
         //Dodaje nowy obiekt do listy. Może także generować id tego obiektu
         public Boolean Insert(Person value, Boolean createid = false)
         {
+            if (value == null)
+                return false;
+
             if (String.IsNullOrEmpty(value.PersonId) && createid)
                 value.PersonId = Guid.NewGuid().ToString();
 
-            if (Find(value.PersonId) == null)
+            //Takiego obiektu (o takim PersonID) nie ma jeszcze w kolekcji
+            if (Find(value) == null)
             {
-                Items.Add(value);
+                items.Add(value);
                 return true;
             }
             return false;
@@ -30,7 +46,7 @@ namespace WebModel_001.Models
         public Person Find(string personid)
         {
             if (!String.IsNullOrEmpty(personid))
-                return Items.SingleOrDefault(item => item.PersonId == personid);
+                return items.SingleOrDefault(item => item.PersonId == personid);
              else
                 return null;
         }
@@ -38,21 +54,41 @@ namespace WebModel_001.Models
         //Wyszukuje i zwraca obiekt o id identycznym jak value.Personid
         public Person Find(Person value)
         {
-            if (value != null)
-                return Find(value.PersonId);
-            else
-                return null;
+            return (value == null) ? null : Find(value.PersonId);
         }
 
 
         public Boolean Remove(string personid)
         {
-            return Items.Remove(Find(personid));
+            return items.Remove(Find(personid));
         }
 
         public Boolean Remove(Person value)
         {
-            return Items.Remove(Find(value));
+            return items.Remove(Find(value));
         }
+
+        //Metoda aktualizuje (zastępuje) obiekt zawarty w kolekcji i którego PersonID = value.PersonID. Nowy obiekt = value
+        public Boolean Update(Person value)
+        {
+            var person = Find(value);
+            if (person != null)
+            {
+                items[items.IndexOf(person)] = value;
+                return true;
+            }
+            else
+                return false;
+        }
+
+        public Boolean InsertOrUpdate(Person value)
+        {
+            var person = Find(value);
+            if (person == null)
+                return Insert(value, true);
+            else
+                return Update(value);
+        }
+        
     }
 }
