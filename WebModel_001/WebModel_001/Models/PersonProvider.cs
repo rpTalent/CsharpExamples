@@ -13,10 +13,28 @@ namespace WebModel_001.Models
         public PersonProvider()
         {
             //Generujemy przykładowe dane
-            Insert(new Person() { FirstName = "Jan", SureName = "Nowak", Sex = 'M', BirthDate = new DateTime(2000, 1, 22)}, true);
+            GenerateRandomData();
+            
+        }
+
+        private void GenerateRandomData(int count = 50)
+        {
+            Insert(new Person() { FirstName = "Jan", SureName = "Nowak", Sex = 'M', BirthDate = new DateTime(2000, 1, 22) }, true);
             Insert(new Person() { FirstName = "Piotr", SureName = "Brzeski", Sex = 'M', BirthDate = new DateTime(1995, 10, 17) }, true);
             Insert(new Person() { FirstName = "Andrzej", SureName = "Dudek", Sex = 'M', BirthDate = new DateTime(1972, 4, 5) }, true);
             Insert(new Person() { FirstName = "Anna", SureName = "Mała", Sex = 'W', BirthDate = new DateTime(2003, 10, 23) }, true);
+
+            var r = new Random();
+            for (var i = 0; i < count; i++)
+                Insert(new Person() {
+                        FirstName = "FirstName_" + i,
+                        SureName  = "SureName_" + i,
+                        BirthDate = new DateTime(r.Next(1950,2010), r.Next(1,12), r.Next(1,28)),
+                        Sex = 'M'
+                }, true);
+            foreach (var item in items)
+                item.Email = item.FirstName.Substring(0, 1) + "." + item.SureName + "@domena.com";
+
         }
        
         public List<Person> ListAll()

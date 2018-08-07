@@ -19,19 +19,20 @@ namespace WebModel_001.Controllers
             return View(Provider);
         }
 
-        public ActionResult About()
+        //Akcja Insert, poprzez wywoalnie POST zapisuje do listy i przekierowuje do akcji Insert, wyswietlajacej liste 
+        [HttpPost]
+        public ActionResult Insert(Person value)
         {
-            ViewBag.Message = "Your application description page.";
+            Provider.Insert(value, true);
+            return RedirectToAction("Index");
+        }
 
+        //Akcja Insert, porzez domyslne wywolanie GET prezkierowuje do widoku Insert, wyswietlajacego jedynie formularz 
+        public ActionResult Insert()
+        {
             return View();
         }
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
 
         private PersonProvider getProvider()
         {

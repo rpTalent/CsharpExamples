@@ -1,0 +1,41 @@
+﻿@model WebModel_001.Models.Person
+
+@{
+    ViewBag.Title = "Nowa osoba";
+}
+
+<div class="jumbotron">
+    <h1>@ViewBag.Title</h1>
+</div>
+
+
+<form action="/Home/Insert" method="post">
+    <table>
+        <tr>
+            <td>Imię</td>
+            <td><input type="text" id="FirstName" name="FirstName" /></td>
+        </tr>
+        <tr>
+            <td>Nazwisko</td>
+            <td><input type="text" id="SureName" name="SureName" /></td>
+        </tr>
+        <tr>
+            <td>Płeć</td>
+            <td>
+                <select name="Sex">
+                    <option value="M">Mężczyzna</option>
+                    <option value="W">Kobieta</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td><input type="text" id="Email" name="Email" /></td>
+        </tr>
+
+        <tr>
+            <td><input type="submit" value="Dodaj" /></td>
+        </tr>
+    </table>
+</form>
+
