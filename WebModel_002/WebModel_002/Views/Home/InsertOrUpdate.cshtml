@@ -1,0 +1,47 @@
+﻿@model WebModel_002.Models.Person
+
+@{
+    ViewBag.Title = "Nowa osoba";
+    var SexItems = new List<SelectListItem>();
+    SexItems.Add(new SelectListItem() { Text = "Mężczyzna", Value = "M" });
+    SexItems.Add(new SelectListItem() { Text = "Kobieta", Value = "W" });
+}
+
+<div class="jumbotron">
+    <h1>@ViewBag.Title</h1>
+</div>
+
+@using (Html.BeginForm("InsertOrUpdate", "Home", FormMethod.Post))
+{
+
+    @Html.HiddenFor(i => i.PersonId)
+
+    <div>
+        @Html.LabelFor(i => i.FirstName) @Html.ValidationMessageFor(i => i.FirstName) <br />
+        @Html.TextBoxFor(i => i.FirstName)
+    </div>
+
+    <div>
+        @Html.LabelFor(i => i.SureName) @Html.ValidationMessageFor(i => i.SureName) <br />
+        @Html.TextBoxFor(i => i.SureName)
+    </div>
+
+    <div>
+        @Html.LabelFor(i => i.Sex) @Html.ValidationMessageFor(i => i.Sex) <br />
+        @Html.DropDownListFor(i => i.Sex, SexItems)
+    </div>
+
+    <div>
+        @Html.LabelFor(i => i.BirthDate) @Html.ValidationMessageFor(i => i.BirthDate) <br />
+        @Html.TextBoxFor(i => i.BirthDate)
+    </div>
+
+    <div>
+        @Html.LabelFor(i => i.Email) @Html.ValidationMessageFor(i => i.Email) <br />
+        @Html.TextBoxFor(i => i.Email)
+    </div>
+
+    <div>
+        <input type="submit" value="Dodaj" />
+    </div>
+}
