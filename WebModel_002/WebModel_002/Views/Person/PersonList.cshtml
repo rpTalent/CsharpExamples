@@ -1,0 +1,40 @@
+﻿@model WebModel_002.Models.PersonProvider
+
+@{
+    ViewBag.Title = "Lista osób";
+}
+
+<div class="jumbotron">
+    <h1>@ViewBag.Title</h1>
+</div>
+
+<div class="row">
+
+    <table class="table-bordered">
+        <tr>
+            <th>ID</th>
+            <th width="100">Imię</th>
+            <th width="200">Nazwisko</th>
+            <th>Płeć</th>
+            <th>Email</th>
+        </tr>
+        @foreach (var item in Model.ListAll())
+        {
+            <tr>
+                <td>@item.PersonId</td>
+                <td>@item.FirstName</td>
+                <td>@item.SureName</td>
+                <td align="center">@item.Sex</td>
+                <td>@item.Email</td>
+                <td>@Html.ActionLink("Edytuj", "Update", new { id = item.PersonId })</td>
+                <td>
+                    @Html.ActionLink("Usuń", "Delete", new { id = item.PersonId },
+                                               new { onclick = "return confirm('Na pewno usunąć tą pozycję ?');" })
+                </td>
+            </tr>
+
+        }
+    </table>
+</div>
+
+<div>@Html.ActionLink("Nowa osoba", "Insert")</div>
